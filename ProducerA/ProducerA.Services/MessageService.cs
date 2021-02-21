@@ -27,7 +27,7 @@ namespace ProducerA.Services
 
         public async Task SendMessagesAsync(MessagesConfig msg)
         {
-            var messages = CreateMessages(msg.MessagesCount);
+            var messages = CreateMessages(msg);
 
             if(msg.QueueType == QueueType.RabbitMQ)
                 await SendToRabbitQueue(msg, messages);
@@ -88,16 +88,20 @@ namespace ProducerA.Services
             return new ParallelOptions { MaxDegreeOfParallelism = msg.ParallelismLimit ?? 2 };
         }
 
-        private IEnumerable<string> CreateMessages(int messagesCount)
+        private IEnumerable<string> CreateMessages(MessagesConfig msg)
         {
             var text = new List<string>();
 
-            for (var i = 0; i < messagesCount; i++)
-                text.Add($"{{ \"Text\": \"Mensagem enviada via api para validar o funcionamento das mensagerias\", \"Index\": {i}}}");
+            for (var i = 0; i < msg.MessagesCount; i++)
+                text.Add(CreateMsg(msg.MessageSize, i));
 
             return text;
         }
 
+        private static string CreateMsg(int msgSize, int index)
+        {
+            return $"GenericMessage - {index}".PadLeft(msgSize, '_');
+        }
 
 
 

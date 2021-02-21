@@ -25,7 +25,7 @@ namespace ConsumerRabbit
 
         private static void ApplicationRun(IHost hostBuilder)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "localhost", Port = 5673 };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {

@@ -14,7 +14,8 @@ namespace ConsumerRabbit
 
         public void ReceiveMessage(string msg)
         {
-            _logger.LogInformation(msg);
+            //_logger.LogInformation(msg);
+            // Do something, or not
         }
     }
 }

@@ -34,7 +34,7 @@ namespace ProducerA
             var conf = new ProducerConfig { BootstrapServers = "localhost:9092" };
 
 
-            services.AddSingleton(x => RabbitHutch.CreateBus("host=localhost:5672"));
+            services.AddSingleton(x => RabbitHutch.CreateBus("host=localhost:5673"));
             services.AddSingleton(x => new ProducerBuilder<Null, string>(conf).Build());
             services.AddScoped<IMessageService, MessageService>();
 
